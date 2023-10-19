@@ -1,7 +1,6 @@
 INDEX VERSION 1.134+C:\Users\victorgsp\Saved Games\projetos\ws-sts\.metadata\.plugins\org.eclipse.jdt.core
 1985918457.index
 3571595089.index
-3866176143.index
 1837684526.index
 2847183607.index
 1362687889.index
