@@ -20,10 +20,10 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
     // a anotation Id serve para indetificar o Id da classe no banco 
-    @Id
     // fala q o Id é auto encrement, onde os principais utiliza essa sintax
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
     private String name;
     private String email;
     private String phone;
@@ -32,7 +32,7 @@ public class User implements Serializable{
     public User(){
     }
 
-    public User(long id, String name, String email, String phone, String password) {
+    public User(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;

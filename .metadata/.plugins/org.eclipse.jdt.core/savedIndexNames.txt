@@ -93,7 +93,6 @@ INDEX VERSION 1.134+C:\Users\victorgsp\Saved Games\projetos\ws-sts\.metadata\.pl
 3752479917.index
 1365723708.index
 1554740997.index
-3866176143.index
 1636362989.index
 1820580620.index
 2441047687.index
