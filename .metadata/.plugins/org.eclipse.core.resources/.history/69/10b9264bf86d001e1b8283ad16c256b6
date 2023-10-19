@@ -1,0 +1,33 @@
+package aplicacao;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import dominio.Pessoa;
+
+public class Programa {
+
+	public static void main(String[] args) {
+
+		Pessoa p1 = new Pessoa(null, "Carlos da Silva", "carlos@gmail.com");
+		Pessoa p2 = new Pessoa(null, "Victor Santos", "victor@gmail.com");
+		Pessoa p3 = new Pessoa(null, "Marlon silva", "marlon@gmail.com");
+		
+		// instacia o EntityManagerFactory com as configuração q está nos arquivos de configuração
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
+		// vai ter uma conecção com o banco de dados 
+		EntityManager em = emf.createEntityManager();
+
+		// isso vai iniciar uma trazação com o banco de dados
+		// quando uma operação não é uma leitura do banco ele necessita de uma trazação
+		em.getTransaction().begin();
+		em.persist(p1);
+		em.persist(p2);
+		em.persist(p3);
+		// isso confirma as auterações q eu fiz
+		em.getTransaction().commit();
+		
+		System.out.println("Pronto!");
+	}
+}
