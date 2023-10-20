@@ -1,12 +1,15 @@
 package com.cursodovitin.projetoJPA.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 // importa a especicação 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /* o Serializable serve para que o objeto possa trafegar na rede,  
@@ -28,6 +31,11 @@ public class User implements Serializable{
     private String email;
     private String phone;
     private String password;
+
+    // esse um para muitos esta mapeado pelo atributo client
+    @OneToMany(mappedBy = "client")
+    // é uma colleção onde tera que ser instaciada
+    private List<Order> orders = new ArrayList<>();
 
     public User(){
     }
@@ -80,6 +88,14 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -101,6 +117,4 @@ public class User implements Serializable{
             return false;
         return true;
     }
-
-    
 }
