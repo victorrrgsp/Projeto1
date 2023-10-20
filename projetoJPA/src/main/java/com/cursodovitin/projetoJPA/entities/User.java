@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // importa a especicação 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,11 @@ public class User implements Serializable{
     private String phone;
     private String password;
 
+    /* Usando esta anotação, você pode marcar uma propriedade ou 
+    * um grupo de propriedades a serem ignoradas. Nessa caso esta
+    * usado no nível de campo. Onde ele ignora os pedidos dos Users
+    */
+    @JsonIgnore
     // esse um para muitos esta mapeado pelo atributo client
     @OneToMany(mappedBy = "client")
     // é uma colleção onde tera que ser instaciada
