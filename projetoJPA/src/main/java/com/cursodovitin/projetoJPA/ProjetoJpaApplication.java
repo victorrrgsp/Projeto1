@@ -15,5 +15,4 @@ public class ProjetoJpaApplication {
 		// comando que roda a aplicação no spring boot
 		SpringApplication.run(ProjetoJpaApplication.class, args);
 	}
-
 }
