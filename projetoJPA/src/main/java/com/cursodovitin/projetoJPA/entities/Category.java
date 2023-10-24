@@ -1,12 +1,15 @@
 package com.cursodovitin.projetoJPA.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_category")
@@ -18,6 +21,10 @@ public class Category implements Serializable{
     private Long id;
     private String name;
     
+    // o @Transient impede q o jpa interpretar o Set
+    @Transient
+    private Set<Product> products = new HashSet<>();
+
     public Category (){
     }
 
@@ -40,6 +47,10 @@ public class Category implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
@@ -66,6 +77,4 @@ public class Category implements Serializable{
             return false;
         return true;
     }
-
-    
 }
