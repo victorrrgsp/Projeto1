@@ -3,6 +3,7 @@ package com.cursodovitin.projetoJPA.entities;
 import java.io.Serializable;
 
 import com.cursodovitin.projetoJPA.entities.pk.OrderItemPk;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,7 +15,8 @@ public class OrderItem implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPk id;
+    // sempre q voce for criar uma classe auxiliar de chave composta, terar q instanciar a mesma
+    private OrderItemPk id = new OrderItemPk();
 
     private Integer quantity;
     private Double price;
@@ -30,6 +32,7 @@ public class OrderItem implements Serializable{
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }

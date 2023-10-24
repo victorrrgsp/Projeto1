@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.cursodovitin.projetoJPA.entities.Category;
 import com.cursodovitin.projetoJPA.entities.Order;
+import com.cursodovitin.projetoJPA.entities.OrderItem;
 import com.cursodovitin.projetoJPA.entities.Product;
 import com.cursodovitin.projetoJPA.entities.User;
 import com.cursodovitin.projetoJPA.entities.enums.OrderStatus;
 import com.cursodovitin.projetoJPA.repositories.CategoryRepository;
+import com.cursodovitin.projetoJPA.repositories.OrderItemRepository;
 import com.cursodovitin.projetoJPA.repositories.OrderRepository;
 import com.cursodovitin.projetoJPA.repositories.ProductRepository;
 import com.cursodovitin.projetoJPA.repositories.UserRepository;
@@ -42,6 +44,9 @@ public class TestConfig implements CommandLineRunner{
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     // tudo que voce colocar nesse metodo vai ser executado quando o programa começar
@@ -81,6 +86,12 @@ public class TestConfig implements CommandLineRunner{
         // o saveAll pegar uma lista de objetos e salva no banco de dados
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
         
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
