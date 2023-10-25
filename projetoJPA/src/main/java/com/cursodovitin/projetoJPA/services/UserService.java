@@ -30,4 +30,9 @@ public class UserService {
     public User insert(User obj){
         return userRepository.save(obj);
     }
+
+    public void delete(Long id){
+        // vai deletar o id que estar como parametro
+        userRepository.deleteById(id);
+    }
 }

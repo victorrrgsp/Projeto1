@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,5 +57,16 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
             .buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
+    }
+
+    // quando for deleta 
+    @DeleteMapping(value = "/{id}")
+    // para o Long id ser reconhecido como uma vareavel da minha url
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        userService.delete(id);
+        /* o noContent vai retorna uma resposta vazia 
+         * e o codigo http de uma resposta que não tem conteudo é o 204 
+        */ 
+        return ResponseEntity.noContent().build();
     }
 }
