@@ -65,6 +65,11 @@ public class OrderItem implements Serializable{
         this.price = price;
     }
 
+    // para esse metodo aparecer no meu json vou ter q colocar getSubTotal
+    public Double getSubTotal(){
+        return price * quantity;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
