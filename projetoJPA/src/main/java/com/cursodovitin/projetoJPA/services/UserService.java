@@ -26,4 +26,8 @@ public class UserService {
         // o get do optional retorna um objeto do tipo User que estiver dentro do obj
         return obj.get();
     }
+
+    public User insert(User obj){
+        return userRepository.save(obj);
+    }
 }

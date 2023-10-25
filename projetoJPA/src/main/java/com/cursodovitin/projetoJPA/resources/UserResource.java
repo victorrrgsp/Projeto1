@@ -1,13 +1,17 @@
 package com.cursodovitin.projetoJPA.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cursodovitin.projetoJPA.entities.User;
 import com.cursodovitin.projetoJPA.services.UserService;
@@ -37,5 +41,20 @@ public class UserResource {
     public ResponseEntity<User> findById(@PathVariable Long id){
         User obj = userService.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping
+    /* O obj vai chager no tipo Json na hora de fazer a requisição, e esse Json vai ser desserializado 
+     * para um objeto user aqui no meu java onde terar q ter uma anotação 
+     * que no caso é o @RequestBody */
+    public ResponseEntity<User> insert (@RequestBody User obj){
+        obj = userService.insert(obj);
+        /* o created esperar um objeto do tipo URI 
+         * por que o padrao http quando vai retorna um 201 é esperado que a resposta contenha
+         * um cabecalho chamado location contedo o inderenco do novo recurso que voce inseriu
+        */ 
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+            .buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 }
