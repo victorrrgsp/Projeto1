@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.cursodovitin.projetoJPA.entities.User;
 import com.cursodovitin.projetoJPA.repositories.UserRepository;
+import com.cursodovitin.projetoJPA.resources.exceptions.DatabaseException;
 import com.cursodovitin.projetoJPA.services.exceptions.ResourceNotFoundException;
 
 // o Servise serve para voce registrar esse Serviso como um conponente do spring
@@ -35,8 +38,14 @@ public class UserService {
     }
 
     public void delete(Long id){
-        // vai deletar o id que estar como parametro
-        userRepository.deleteById(id);
+        try {
+            // vai deletar o id que estar como parametro
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     // o id vai indicar qual o user do banco e o obj os atributos do mesmo
