@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cursodovitin.projetoJPA.entities.User;
 import com.cursodovitin.projetoJPA.repositories.UserRepository;
+import com.cursodovitin.projetoJPA.services.exceptions.ResourceNotFoundException;
 
 // o Servise serve para voce registrar esse Serviso como um conponente do spring
 @Service
@@ -23,8 +24,10 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = userRepository.findById(id);
-        // o get do optional retorna um objeto do tipo User que estiver dentro do obj
-        return obj.get();
+        /* o get do optional retorna um objeto do tipo User que estiver dentro do obj
+         * o orElseThrow vai tentar dar o get, se não tiver o usuario ele vai lançar uma exceção
+        */ 
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
