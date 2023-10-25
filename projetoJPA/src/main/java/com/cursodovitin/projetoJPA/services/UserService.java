@@ -13,6 +13,8 @@ import com.cursodovitin.projetoJPA.repositories.UserRepository;
 import com.cursodovitin.projetoJPA.resources.exceptions.DatabaseException;
 import com.cursodovitin.projetoJPA.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 // o Servise serve para voce registrar esse Serviso como um conponente do spring
 @Service
 public class UserService {
@@ -50,12 +52,16 @@ public class UserService {
 
     // o id vai indicar qual o user do banco e o obj os atributos do mesmo
     public User update(Long id, User obj){
-        /* o getReferenceById vai instaciar um usuario mas ele não vai pro banco de dados ainda 
-         * ele só vai deixar um objeto monitorado pelo jpa trabalha com ele e em seguida posso afetua uma operação ao banco de dados
-        */ 
-        User entity = userRepository.getReferenceById(id);
-        updateDate(entity, obj);
-        return userRepository.save(entity);
+        try {
+            /* o getReferenceById vai instaciar um usuario mas ele não vai pro banco de dados ainda 
+            * ele só vai deixar um objeto monitorado pelo jpa trabalha com ele e em seguida posso afetua uma operação ao banco de dados
+            */ 
+            User entity = userRepository.getReferenceById(id);
+            updateDate(entity, obj);
+            return userRepository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateDate(User entity, User obj) {
