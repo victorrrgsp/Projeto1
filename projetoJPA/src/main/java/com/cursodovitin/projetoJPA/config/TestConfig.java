@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.cursodovitin.projetoJPA.entities.Category;
 import com.cursodovitin.projetoJPA.entities.Order;
 import com.cursodovitin.projetoJPA.entities.OrderItem;
+import com.cursodovitin.projetoJPA.entities.Payment;
 import com.cursodovitin.projetoJPA.entities.Product;
 import com.cursodovitin.projetoJPA.entities.User;
 import com.cursodovitin.projetoJPA.entities.enums.OrderStatus;
@@ -93,5 +94,14 @@ public class TestConfig implements CommandLineRunner{
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
         
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        /* para salva um objeto dependete de um para um
+         * voce não vai chamar o prepository do proprio objeto
+         * onde terá que fazer a associação de mão dupla em memoria
+         */
+        Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+        o1.setPayment(pay1);
+
+        orderRepository.save(o1);
     }
 }
